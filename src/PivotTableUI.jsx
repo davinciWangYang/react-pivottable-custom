@@ -153,7 +153,7 @@ export class DraggableAttribute extends React.Component {
             onClick={this.toggleFilterBox.bind(this)}
           >
             {' '}
-            <span class="material-icons">filter_alt</span>
+            <span className="material-icons">filter_alt</span>
           </span>
         </span>
 
