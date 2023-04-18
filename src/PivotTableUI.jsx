@@ -6,6 +6,7 @@ import PivotTable from './PivotTable';
 import Sortable from 'react-sortablejs';
 import Draggable from 'react-draggable';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
+import Button from '@mui/material/Button';
 
 /* eslint-disable react/prop-types */
 // eslint can't see inherited propTypes!
@@ -148,13 +149,14 @@ export class DraggableAttribute extends React.Component {
     return (
       <li data-id={this.props.name}>
         <span className={'pvtAttr ' + filtered}>
-          {this.props.name}
-          <span
-            className="material-icons"
+          <Button
+            className="toggle-filter-box"
+            variant="outlined"
+            endIcon={<FilterAltIcon />}
             onClick={this.toggleFilterBox.bind(this)}
           >
-            <FilterAltIcon />
-          </span>
+            {this.props.name}
+          </Button>
         </span>
 
         {this.state.open ? this.getFilterBox() : null}
