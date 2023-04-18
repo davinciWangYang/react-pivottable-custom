@@ -1,5 +1,5 @@
 {
-  "name": "react-pivottable-custom",
+  "name": "react-pivottable-custom-wangyang",
   "version": "0.0.1",
   "description": "A React-based pivot table",
   "main": "PivotTableUI.js",
@@ -38,7 +38,7 @@
     "react",
     "pivottable"
   ],
-  "author": "Wang Yang <wangyang@davinci-retail.com>",
+  "author": "Wang Yang <wang.yang@davinci-retail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/plotly/react-pivottable/issues"
@@ -77,6 +77,7 @@
     "react-plotly.js": "^2.0.0",
     "style-loader": "^0.19.0",
     "webpack": "^3.8.1",
+    "webpack-cli": "^5.0.1",
     "webpack-dev-server": "^2.9.3"
   }
 }
