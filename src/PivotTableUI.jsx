@@ -149,11 +149,11 @@ export class DraggableAttribute extends React.Component {
         <span className={'pvtAttr ' + filtered}>
           {this.props.name}
           <span
-            className="pvtTriangle"
+            className="material-icons"
             onClick={this.toggleFilterBox.bind(this)}
           >
             {' '}
-            <span className="material-icons">filter_alt</span>
+            filter_alt
           </span>
         </span>
 
