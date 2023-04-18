@@ -5,6 +5,7 @@ import {PivotData, sortAs, getSort} from './Utilities';
 import PivotTable from './PivotTable';
 import Sortable from 'react-sortablejs';
 import Draggable from 'react-draggable';
+import FilterAltIcon from '@mui/icons-material/FilterAlt';
 
 /* eslint-disable react/prop-types */
 // eslint can't see inherited propTypes!
@@ -152,7 +153,7 @@ export class DraggableAttribute extends React.Component {
             className="material-icons"
             onClick={this.toggleFilterBox.bind(this)}
           >
-            filter_alt
+            <FilterAltIcon />
           </span>
         </span>
 

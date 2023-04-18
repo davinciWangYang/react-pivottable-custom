@@ -1,6 +1,6 @@
 {
   "name": "react-pivottable-custom-wangyang",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "A React-based pivot table",
   "main": "PivotTableUI.js",
   "files": [
@@ -45,6 +45,7 @@
   },
   "homepage": "https://github.com/plotly/react-pivottable#readme",
   "dependencies": {
+    "@mui/icons-material": "^5.11.16",
     "immutability-helper": "^2.3.1",
     "prop-types": "^15.5.10",
     "react-draggable": "^3.0.3",
