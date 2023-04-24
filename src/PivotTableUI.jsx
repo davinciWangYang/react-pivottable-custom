@@ -6,9 +6,12 @@ import PivotTable from './PivotTable';
 import Sortable from 'react-sortablejs';
 import Draggable from 'react-draggable';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
+import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import SearchIcon from '@mui/icons-material/Search';
 import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
+import TextField from '@mui/material/TextField';
+import InputAdornment from '@mui/material/InputAdornment';
 
 /* eslint-disable react/prop-types */
 // eslint can't see inherited propTypes!
@@ -69,9 +72,8 @@ export class DraggableAttribute extends React.Component {
           {showMenu || <p>(too many values to show)</p>}
           {showMenu && (
             <p>
-              <SearchIcon />
-              <input
-                type="text"
+              <TextField
+                variant="standard"
                 placeholder="Filter values"
                 className="pvtSearch"
                 value={this.state.filterText}
@@ -80,6 +82,14 @@ export class DraggableAttribute extends React.Component {
                     filterText: e.target.value,
                   })
                 }
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <SearchIcon />
+                    </InputAdornment>
+                  ),
+                  disableUnderline: true,
+                }}
               />
               <br />
               <a
@@ -154,7 +164,12 @@ export class DraggableAttribute extends React.Component {
             }}
             className="toggle-filter-box"
             variant="outlined"
-            endIcon={<FilterAltIcon />}
+            startIcon={
+              this.props.name !== 'timeLevel' ? (
+                <DragIndicatorIcon color="disabled" />
+              ) : null
+            }
+            endIcon={<FilterAltIcon color="disabled" />}
             onClick={this.toggleFilterBox.bind(this)}
           >
             {this.props.name}

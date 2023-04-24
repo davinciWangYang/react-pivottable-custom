@@ -786,8 +786,6 @@ PivotData.defaultProps = {
 };
 
 PivotData.propTypes = {
-  data: PropTypes.oneOfType([PropTypes.array, PropTypes.object, PropTypes.func])
-    .isRequired,
   aggregatorName: PropTypes.string,
   cols: PropTypes.arrayOf(PropTypes.string),
   rows: PropTypes.arrayOf(PropTypes.string),
