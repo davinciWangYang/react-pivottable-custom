@@ -6,7 +6,9 @@ import PivotTable from './PivotTable';
 import Sortable from 'react-sortablejs';
 import Draggable from 'react-draggable';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
+import SearchIcon from '@mui/icons-material/Search';
 import Button from '@mui/material/Button';
+import Checkbox from '@mui/material/Checkbox';
 
 /* eslint-disable react/prop-types */
 // eslint can't see inherited propTypes!
@@ -70,6 +72,7 @@ export class DraggableAttribute extends React.Component {
 
           {showMenu && (
             <p>
+              <SearchIcon />
               <input
                 type="text"
                 placeholder="Filter values"
@@ -116,16 +119,12 @@ export class DraggableAttribute extends React.Component {
           {showMenu && (
             <div className="pvtCheckContainer">
               {shown.map(x => (
-                <p
-                  key={x}
-                  onClick={() => this.toggleValue(x)}
-                  className={x in this.props.valueFilter ? '' : 'selected'}
-                >
-                  <a className="pvtOnly" onClick={e => this.selectOnly(e, x)}>
-                    only
-                  </a>
+                <p key={x}>
+                  <Checkbox
+                    checked={x in this.props.valueFilter ? false : true}
+                    onClick={() => this.toggleValue(x)}
+                  />
                   <a className="pvtOnlySpacer">&nbsp;</a>
-
                   {x === '' ? <em>null</em> : x}
                 </p>
               ))}

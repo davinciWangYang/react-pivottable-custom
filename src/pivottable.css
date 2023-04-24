@@ -69,7 +69,7 @@ table.pvtTable tbody tr td {
 .pvtAxisContainer,
 .pvtVals {
     border: 1px solid #a2b1c6;
-    background: #f2f5fa;
+    background: #fff;
     padding: 5px;
     min-width: 20px;
     min-height: 20px;
@@ -136,10 +136,6 @@ table.pvtTable tbody tr td {
     padding-bottom: 12px;
 }
 
-.pvtRows {
-    height: 35px;
-}
-
 .pvtAxisContainer li {
     padding: 8px 6px;
     list-style-type: none;
@@ -158,8 +154,6 @@ table.pvtTable tbody tr td {
 
 .pvtAxisContainer li span.pvtAttr {
     -webkit-text-size-adjust: 100%;
-    background: #f3f6fa;
-    border: 1px solid #c8d4e3;
     padding: 2px 5px;
     white-space: nowrap;
     -webkit-border-radius: 5px;
@@ -214,9 +208,6 @@ table.pvtTable tbody tr td {
     color: #506784;
     border-radius: 5px;
     padding: 3px 6px;
-    background: #f2f5fa;
-    border: 1px solid;
-    border-color: #c8d4e3;
     font-size: 14px;
     margin: 3px;
     transition: 0.34s all cubic-bezier(0.19, 1, 0.22, 1);
@@ -290,10 +281,6 @@ table.pvtTable tbody tr td {
     margin-bottom: 1px;
     padding: 3px;
     cursor: default;
-}
-
-.pvtCheckContainer p.selected {
-    background: #ebf0f8;
 }
 
 .pvtOnly {

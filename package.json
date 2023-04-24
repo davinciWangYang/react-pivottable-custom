@@ -1,6 +1,6 @@
 {
   "name": "react-pivottable-custom-wangyang",
-  "version": "0.0.3",
+  "version": "0.0.6",
   "description": "A React-based pivot table",
   "main": "PivotTableUI.js",
   "files": [
@@ -71,7 +71,7 @@
     "jest": "^21.2.1",
     "papaparse": "^4.3.6",
     "prettier": "^1.8.2",
-    "react": ">=15.0.0",
+    "react": "^18.2.0",
     "react-dom": ">=15.0.0",
     "react-dropzone": "^4.2.1",
     "react-hot-loader": "^3.1.1",
