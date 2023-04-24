@@ -5,6 +5,13 @@ import {PivotData, sortAs, getSort} from './Utilities';
 import PivotTable from './PivotTable';
 import Sortable from 'react-sortablejs';
 import Draggable from 'react-draggable';
+import FilterAltIcon from '@mui/icons-material/FilterAlt';
+import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
+import SearchIcon from '@mui/icons-material/Search';
+import Button from '@mui/material/Button';
+import Checkbox from '@mui/material/Checkbox';
+import TextField from '@mui/material/TextField';
+import InputAdornment from '@mui/material/InputAdornment';
 
 /* eslint-disable react/prop-types */
 // eslint can't see inherited propTypes!
@@ -46,7 +53,7 @@ export class DraggableAttribute extends React.Component {
     const shown = values
       .filter(this.matchesFilter.bind(this))
       .sort(this.props.sorter);
-
+    const valueTitle = this.props.name + '(' + values.length + ')';
     return (
       <Draggable handle=".pvtDragHandle">
         <div
@@ -61,15 +68,12 @@ export class DraggableAttribute extends React.Component {
           <a onClick={() => this.setState({open: false})} className="pvtCloseX">
             ×
           </a>
-          <span className="pvtDragHandle">☰</span>
-          <h4>{this.props.name}</h4>
-
+          <h4>{valueTitle}</h4>
           {showMenu || <p>(too many values to show)</p>}
-
           {showMenu && (
             <p>
-              <input
-                type="text"
+              <TextField
+                variant="standard"
                 placeholder="Filter values"
                 className="pvtSearch"
                 value={this.state.filterText}
@@ -78,6 +82,14 @@ export class DraggableAttribute extends React.Component {
                     filterText: e.target.value,
                   })
                 }
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <SearchIcon />
+                    </InputAdornment>
+                  ),
+                  disableUnderline: true,
+                }}
               />
               <br />
               <a
@@ -110,20 +122,17 @@ export class DraggableAttribute extends React.Component {
               </a>
             </p>
           )}
-
           {showMenu && (
             <div className="pvtCheckContainer">
               {shown.map(x => (
-                <p
-                  key={x}
-                  onClick={() => this.toggleValue(x)}
-                  className={x in this.props.valueFilter ? '' : 'selected'}
-                >
-                  <a className="pvtOnly" onClick={e => this.selectOnly(e, x)}>
-                    only
-                  </a>
-                  <a className="pvtOnlySpacer">&nbsp;</a>
-
+                <p key={x}>
+                  <Checkbox
+                    style={{
+                      padding: '0px 9px',
+                    }}
+                    checked={x in this.props.valueFilter ? false : true}
+                    onClick={() => this.toggleValue(x)}
+                  />
                   {x === '' ? <em>null</em> : x}
                 </p>
               ))}
@@ -147,16 +156,25 @@ export class DraggableAttribute extends React.Component {
     return (
       <li data-id={this.props.name}>
         <span className={'pvtAttr ' + filtered}>
-          {this.props.name}
-          <span
-            className="pvtTriangle"
+          <Button
+            style={{
+              backgroundColor: '#f3f3f3',
+              padding: '1px 10px',
+              textTransform: 'none',
+            }}
+            className="toggle-filter-box"
+            variant="outlined"
+            startIcon={
+              this.props.name !== 'timeLevel' ? (
+                <DragIndicatorIcon color="disabled" />
+              ) : null
+            }
+            endIcon={<FilterAltIcon color="disabled" />}
             onClick={this.toggleFilterBox.bind(this)}
           >
-            {' '}
-            ▾
-          </span>
+            {this.props.name}
+          </Button>
         </span>
-
         {this.state.open ? this.getFilterBox() : null}
       </li>
     );
@@ -171,7 +189,6 @@ DraggableAttribute.propTypes = {
   name: PropTypes.string.isRequired,
   addValuesToFilter: PropTypes.func.isRequired,
   removeValuesFromFilter: PropTypes.func.isRequired,
-  attrValues: PropTypes.objectOf(PropTypes.number).isRequired,
   valueFilter: PropTypes.objectOf(PropTypes.bool),
   moveFilterBoxToTop: PropTypes.func.isRequired,
   sorter: PropTypes.func.isRequired,
@@ -372,13 +389,6 @@ class PivotTableUI extends React.PureComponent {
   }
 
   render() {
-    const numValsAllowed =
-      this.props.aggregators[this.props.aggregatorName]([])().numInputs || 0;
-
-    const aggregatorCellOutlet = this.props.aggregators[
-      this.props.aggregatorName
-    ]([])().outlet;
-
     const rendererName =
       this.props.rendererName in this.props.renderers
         ? this.props.rendererName
@@ -401,80 +411,7 @@ class PivotTableUI extends React.PureComponent {
       </td>
     );
 
-    const sortIcons = {
-      key_a_to_z: {
-        rowSymbol: '↕',
-        colSymbol: '↔',
-        next: 'value_a_to_z',
-      },
-      value_a_to_z: {
-        rowSymbol: '↓',
-        colSymbol: '→',
-        next: 'value_z_to_a',
-      },
-      value_z_to_a: {rowSymbol: '↑', colSymbol: '←', next: 'key_a_to_z'},
-    };
-
-    const aggregatorCell = (
-      <td className="pvtVals">
-        <Dropdown
-          current={this.props.aggregatorName}
-          values={Object.keys(this.props.aggregators)}
-          open={this.isOpen('aggregators')}
-          zIndex={this.isOpen('aggregators') ? this.state.maxZIndex + 1 : 1}
-          toggle={() =>
-            this.setState({
-              openDropdown: this.isOpen('aggregators') ? false : 'aggregators',
-            })
-          }
-          setValue={this.propUpdater('aggregatorName')}
-        />
-        <a
-          role="button"
-          className="pvtRowOrder"
-          onClick={() =>
-            this.propUpdater('rowOrder')(sortIcons[this.props.rowOrder].next)
-          }
-        >
-          {sortIcons[this.props.rowOrder].rowSymbol}
-        </a>
-        <a
-          role="button"
-          className="pvtColOrder"
-          onClick={() =>
-            this.propUpdater('colOrder')(sortIcons[this.props.colOrder].next)
-          }
-        >
-          {sortIcons[this.props.colOrder].colSymbol}
-        </a>
-        {numValsAllowed > 0 && <br />}
-        {new Array(numValsAllowed).fill().map((n, i) => [
-          <Dropdown
-            key={i}
-            current={this.props.vals[i]}
-            values={Object.keys(this.state.attrValues).filter(
-              e =>
-                !this.props.hiddenAttributes.includes(e) &&
-                !this.props.hiddenFromAggregators.includes(e)
-            )}
-            open={this.isOpen(`val${i}`)}
-            zIndex={this.isOpen(`val${i}`) ? this.state.maxZIndex + 1 : 1}
-            toggle={() =>
-              this.setState({
-                openDropdown: this.isOpen(`val${i}`) ? false : `val${i}`,
-              })
-            }
-            setValue={value =>
-              this.sendPropUpdate({
-                vals: {$splice: [[i, 1, value]]},
-              })
-            }
-          />,
-          i + 1 !== numValsAllowed ? <br key={`br${i}`} /> : null,
-        ])}
-        {aggregatorCellOutlet && aggregatorCellOutlet(this.props.data)}
-      </td>
-    );
+    const aggregatorCell = <td className="pvtVals"></td>;
 
     const unusedAttrs = Object.keys(this.state.attrValues)
       .filter(
