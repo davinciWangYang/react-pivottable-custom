@@ -20,8 +20,26 @@ export class DraggableAttribute extends React.Component {
   constructor(props) {
     super(props);
     this.state = {open: false, filterText: ''};
+    this.wrapperRef = React.createRef();
+    this.handleClickOutside = this.handleClickOutside.bind(this);
+  }
+  componentDidMount() {
+    document.addEventListener("mousedown", this.handleClickOutside);
   }
 
+  componentWillUnmount() {
+    document.removeEventListener("mousedown", this.handleClickOutside);
+  }
+
+  handleClickOutside(event) {
+    if(this.wrapperRef.current){
+     if (!this.wrapperRef.current.contains(event.target)) {
+        this.setState({open:false});
+      }
+    }
+    
+  }
+  
   toggleValue(value) {
     if (value in this.props.valueFilter) {
       this.props.removeValuesFromFilter(this.props.name, [value]);
@@ -64,6 +82,7 @@ export class DraggableAttribute extends React.Component {
             zIndex: this.props.zIndex,
           }}
           onClick={() => this.props.moveFilterBoxToTop(this.props.name)}
+          ref={this.wrapperRef}
         >
           <a onClick={() => this.setState({open: false})} className="pvtCloseX">
             ×
@@ -153,6 +172,7 @@ export class DraggableAttribute extends React.Component {
       Object.keys(this.props.valueFilter).length !== 0
         ? 'pvtFilteredAttribute'
         : '';
+
     return (
       <li data-id={this.props.name}>
         <span className={'pvtAttr ' + filtered}>
@@ -172,7 +192,9 @@ export class DraggableAttribute extends React.Component {
             endIcon={<FilterAltIcon color="disabled" />}
             onClick={this.toggleFilterBox.bind(this)}
           >
-            {this.props.name}
+            <span>
+              { this.props.name !== 'timeLevel'? this.props.name : 'Timescales'}
+            </span>
           </Button>
         </span>
         {this.state.open ? this.getFilterBox() : null}
@@ -243,7 +265,6 @@ export class Dropdown extends React.PureComponent {
     );
   }
 }
-
 class PivotTableUI extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -259,7 +280,7 @@ class PivotTableUI extends React.PureComponent {
 
   componentDidMount() {
     this.materializeInput(this.props.data);
-  }
+    }
 
   componentDidUpdate() {
     this.materializeInput(this.props.data);
