@@ -1,6 +1,5 @@
 .pvtUi {
   color: #2a3f5f;
-  font-family: Verdana;
   border-collapse: collapse;
 }
 .pvtUi select {
@@ -21,7 +20,6 @@ table.pvtTable {
   border-collapse: collapse;
   margin-top: 3px;
   margin-left: 3px;
-  font-family: Verdana;
 }
 table.pvtTable thead tr th,
 table.pvtTable tbody tr th {
@@ -83,10 +81,6 @@ table.pvtTable tbody tr td {
 .pvtDropdown {
   display: inline-block;
   position: relative;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -khtml-user-select: none;
-  -ms-user-select: none;
   margin: 3px;
 }
 
