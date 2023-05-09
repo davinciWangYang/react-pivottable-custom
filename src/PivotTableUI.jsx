@@ -185,9 +185,7 @@ export class DraggableAttribute extends React.Component {
                       role="button"
                       className="pvtButton"
                       onClick={() =>
-                        this.setState({
-                          openDropdown: false
-                        })
+                        this.setState({open: false})
                       }
                     >
                       Cancel
