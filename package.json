@@ -1,6 +1,6 @@
 {
   "name": "react-pivottable-custom-filter",
-  "version": "0.3.3",
+  "version": "0.3.5",
   "description": "A React-based pivot table",
   "main": "PivotTableUI.js",
   "files": [
