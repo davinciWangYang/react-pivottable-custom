@@ -34,7 +34,8 @@ BottomRenderer.propTypes = Object.assign({}, PivotTable.propTypes, {
 export class DraggableAttribute extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {open: false, filterText: '',valueFilter:[]};
+    this.state = {open: false, filterText: '',valueFilter: []};
+
     this.wrapperRef = React.createRef();
     this.handleClickOutside = this.handleClickOutside.bind(this);
   }
@@ -88,7 +89,9 @@ export class DraggableAttribute extends React.Component {
     const shown = values
       .filter(this.matchesFilter.bind(this))
       .sort(this.props.sorter);
-    const valueTitle = (this.props.name !== 'timeLevel'? this.props.name : 'Timescales') + '(' + values.length + ')';
+    const valueTitle = (this.props.name !== 'timeLevel'? this.props.name !== 'Time'?this.props.name:'Period' :  'Timescales') + 's (' + values.length + ')';
+
+
     return (
       <Draggable handle=".pvtDragHandle">
         <div
@@ -203,6 +206,9 @@ export class DraggableAttribute extends React.Component {
   toggleFilterBox() {
     this.setState({open: !this.state.open});
     this.props.moveFilterBoxToTop(this.props.name);
+    if(Object.keys(this.props.valueFilter).length){
+      this.setState({valueFilter:Object.keys(this.props.valueFilter)});
+    }
   }
 
   render() {
@@ -231,7 +237,7 @@ export class DraggableAttribute extends React.Component {
             onClick={this.toggleFilterBox.bind(this)}
           >
             <span>
-              { this.props.name !== 'timeLevel'? this.props.name : 'Timescales'}
+              { this.props.name !== 'timeLevel'? this.props.name !== 'Time'?this.props.name:'Period' : 'Timescale'}s
             </span>
           </Button>
         </span>
