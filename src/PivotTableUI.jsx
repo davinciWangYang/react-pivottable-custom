@@ -87,8 +87,7 @@ export class DraggableAttribute extends React.Component {
 
     const values = Object.keys(this.props.attrValues);
     const shown = values
-      .filter(this.matchesFilter.bind(this))
-      .sort(this.props.sorter);
+      .filter(this.matchesFilter.bind(this));
     const valueTitle = (this.props.name !== 'timeLevel'? this.props.name !== 'Time'?this.props.name:'Period' :  'Timescales') + 's (' + values.length + ')';
 
 
